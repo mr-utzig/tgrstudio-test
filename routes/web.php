@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(ProductsController::class)
+->group(function () {
+    Route::get("/", "list")->name('products.list');
+    Route::get("/product/{id}", "show");
+    Route::post("/product", "insert");
+    Route::patch("/product/{id}", "update");
+    Route::delete("/product/{id}", "delete");
+    Route::get("/products/filter", "filter")->name('products.filter');
 });
